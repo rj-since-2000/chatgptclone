@@ -8,7 +8,11 @@ class Website:
         self.app = app
         self.routes = {
             '/': {
-                'function': lambda: redirect('/chat'),
+                'function': lambda: redirect('/auth'),
+                'methods': ['GET', 'POST']
+            },
+            '/auth': {
+                'function': self._auth,
                 'methods': ['GET', 'POST']
             },
             '/chat/': {
@@ -24,6 +28,9 @@ class Website:
                 'methods': ['GET', 'POST']
             }
         }
+    
+    def _auth(self):
+        return render_template('auth.html')
 
     def _chat(self, conversation_id):
         if not '-' in conversation_id:
